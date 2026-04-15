@@ -40,14 +40,17 @@ Based on: *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), 
 
 ## Install
 
+From this repo's built-in marketplace:
+
 ```bash
-/plugin install cleancode@claude-plugins-official
+/plugin marketplace add DinoQuinten/cleancode-assistant
+/plugin install cleancode@cleancode-assistant
 ```
 
-Or test locally:
+Or point Claude Code directly at a local checkout:
 
 ```bash
-claude --plugin-dir /path/to/clean-code-plugin/claude-code
+claude --plugin-dir /path/to/cleancode-assistant
 ```
 
 ---

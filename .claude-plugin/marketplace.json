@@ -1,0 +1,26 @@
+{
+  "name": "cleancode-assistant",
+  "owner": {
+    "name": "DinoQuinten",
+    "email": "77713617+DinoQuinten@users.noreply.github.com"
+  },
+  "plugins": [
+    {
+      "name": "cleancode",
+      "source": {
+        "source": "github",
+        "repo": "DinoQuinten/cleancode-assistant",
+        "ref": "v0.2.0"
+      },
+      "description": "Clean code assistant — 14 plain-language rules, auto-fix for silent errors, method chains, messy tests, long functions, and more",
+      "version": "0.2.0",
+      "author": {
+        "name": "DinoQuinten"
+      },
+      "homepage": "https://github.com/DinoQuinten/cleancode-assistant",
+      "repository": "https://github.com/DinoQuinten/cleancode-assistant",
+      "license": "MIT",
+      "keywords": ["clean-code", "oop", "code-quality", "refactoring", "teaching", "interfaces", "readable", "tech-debt", "design-patterns", "testing", "health-check", "fail-fast"]
+    }
+  ]
+}
