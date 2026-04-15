@@ -58,26 +58,20 @@ Based on: *Clean Code: A Handbook of Agile Software Craftsmanship* (Robert C. Ma
 
 **Report or fix, your choice.** Every detection skill defaults to a report. Add `fix` to apply changes. The reviewer agent stays read-only — nothing is ever rewritten without an explicit `/cleancode:*` command.
 
+**Also available for Codex CLI.** The same 15 rules ship as a Codex CLI installer — run `npx cleancode-codex init` in any project to write `AGENTS.md` and `.cleancode-rules.md`. See [`codex/README.md`](./codex/README.md).
+
 Full details, rule list, language support, and troubleshooting live in the plugin's own docs at [tag `v0.3.0`](https://github.com/DinoQuinten/claude-plugins/blob/v0.3.0/README.md).
 
 ---
 
 ## `system-and-database-design`
 
-Claude Code:
 A Claude Code plugin that helps you design real-world software architecture and databases. Ships with 39 curated reference chunks distilled from three canonical texts:
 
 - **Designing Data-Intensive Applications** (Kleppmann) — data systems, consistency, replication, partitioning
 - **Fundamentals of Software Architecture** (Richards & Ford) — architecture styles, characteristics, fitness functions
 - **The Data Warehouse Toolkit** (Kimball) — dimensional modeling, star schemas, SCDs
 
-Codex CLI:
-
-```bash
-npx cleancode-codex init
-```
-
-Or point Claude Code directly at a local checkout:
 …plus authored chunks covering topics the books don't: API design, observability, security, ML/AI serving, real-time systems, compliance. **You do not need the source books.** Zero setup — no dependencies, no downloads, no build step.
 
 | Skill | Command | What it does |
