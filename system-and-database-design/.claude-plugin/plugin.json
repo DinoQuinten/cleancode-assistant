@@ -1,0 +1,22 @@
+{
+  "name": "system-and-database-design",
+  "version": "0.1.0",
+  "description": "Architect and database-design coach. Grounds Claude in Designing Data-Intensive Applications, Fundamentals of Software Architecture, and Kimball's Data Warehouse Toolkit, and produces design docs, Mermaid / Excalidraw / DBML diagrams, and architecture reviews.",
+  "author": {
+    "name": "Prasanna Anthony",
+    "url": "https://github.com/DinoQuinten"
+  },
+  "homepage": "https://github.com/DinoQuinten/claude-plugins",
+  "repository": "https://github.com/DinoQuinten/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "system-design",
+    "software-architecture",
+    "database-design",
+    "diagramming",
+    "ddia",
+    "kimball",
+    "microservices",
+    "data-modeling"
+  ]
+}
