@@ -73,11 +73,17 @@ This separation keeps each skill small and focused, while `fix` gives you a sing
 
 ## Install
 
-From this repo's built-in marketplace:
+Claude Code:
 
 ```bash
 /plugin marketplace add DinoQuinten/cleancode-assistant
 /plugin install cleancode@cleancode-assistant
+```
+
+Codex CLI:
+
+```bash
+npx cleancode-codex init
 ```
 
 Or point Claude Code directly at a local checkout:

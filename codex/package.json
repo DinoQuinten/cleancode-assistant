@@ -1,0 +1,28 @@
+{
+  "name": "cleancode-codex",
+  "version": "0.3.0",
+  "description": "Codex CLI installer for the 15 clean code rules.",
+  "type": "module",
+  "bin": "./bin/cleancode-codex.js",
+  "scripts": {
+    "sync-rules": "node scripts/sync-rules.js",
+    "test": "node --test test/cli.test.js"
+  },
+  "files": [
+    "bin",
+    "templates",
+    "scripts",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Prasanna Anthony",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DinoQuinten/cleancode-assistant.git",
+    "directory": "codex"
+  },
+  "homepage": "https://github.com/DinoQuinten/cleancode-assistant#readme"
+}
