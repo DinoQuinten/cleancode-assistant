@@ -120,7 +120,7 @@ Wait for `yes`.
 
 Run each stage in order. For each:
 
-1. Invoke the corresponding fixer skill with the `fix` flag.
+1. Apply the same detection + fix logic documented in the corresponding fixer skill (`safety`, `untangle`, `test`, `refactor`). The fix skill does not invoke other skills as sub-processes — it re-uses their detection rules and fix templates inline.
 2. Pass the subset of violations relevant to that stage.
 3. Collect the results (edits applied, files touched).
 4. If a stage fails (error, user cancels mid-way), stop the pipeline and report what was done.
@@ -161,7 +161,7 @@ Suggest running your test suite to confirm behavior is preserved.
 - **Stop on error.** If any stage fails, stop the pipeline. Leave already-applied edits in place.
 - **Preserve behavior.** Every fix must preserve observable behavior. If a fix would change semantics, skip it and log a manual-review note.
 - **Ask once, run fully.** After the user says `yes` to the plan, run the whole pipeline — don't re-confirm each stage (unless a stage encounters an ambiguous case the fixer itself flags).
-- **Single-file mode skips confirmation when changes are small** (< 10 lines). For larger changes, always show the plan first.
+- **Always show the plan and wait for `yes`** before editing, regardless of file count or change size. The user is in control of every write.
 
 ## What /cleancode:fix Does Not Do
 

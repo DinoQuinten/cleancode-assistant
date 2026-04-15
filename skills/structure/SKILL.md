@@ -113,52 +113,9 @@ Wait for confirmation. Apply via Write (new files) + Edit (existing files).
 
 ## Step 4: Apply Pattern
 
-### Strategy pattern — template
+Each pattern has a full rewrite template in `references/pattern-catalog.md` — look up the one the report selected and follow it step by step. Strategy, Command, Factory, and State are all documented there with interface definitions, per-case file layout, registry/dispatch code, and the exact call-site replacement.
 
-1. Define an interface for the common behavior:
-   ```typescript
-   // src/payments/IPaymentMethod.ts
-   export interface IPaymentMethod {
-     readonly name: string;
-     charge(amount: number): Promise<ChargeResult>;
-   }
-   ```
-
-2. One file per case:
-   ```typescript
-   // src/payments/CreditCardPayment.ts
-   import { IPaymentMethod } from "./IPaymentMethod";
-
-   export class CreditCardPayment implements IPaymentMethod {
-     readonly name = "credit_card";
-     async charge(amount: number): Promise<ChargeResult> {
-       // body of the original switch case goes here
-     }
-   }
-   ```
-
-3. Registry:
-   ```typescript
-   // src/payments/index.ts
-   import { CreditCardPayment } from "./CreditCardPayment";
-   import { PayPalPayment } from "./PayPalPayment";
-   // ...
-   export const paymentMethods: Record<string, IPaymentMethod> = {
-     credit_card: new CreditCardPayment(),
-     paypal: new PayPalPayment(),
-   };
-   ```
-
-4. Replace the switch with a lookup:
-   ```typescript
-   const method = paymentMethods[paymentType];
-   if (!method) throw new Error(`Unknown payment type: ${paymentType}`);
-   return method.charge(amount);
-   ```
-
-### Command, Factory, State — templates
-
-See `references/pattern-catalog.md` for each pattern's full rewrite template.
+**When NOT to apply:** the catalog documents cases where each pattern would over-engineer the situation. Check the "When it does NOT fit" section of the selected pattern before writing — if any row matches, report the suggestion but do not apply the `fix`.
 
 ## Step 5: Verify
 

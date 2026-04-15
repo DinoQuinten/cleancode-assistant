@@ -69,9 +69,9 @@ More than 3 distinct assertions. "Distinct" means asserting different properties
 - Names with no verb or `should_` / `when_` / `given_` prefix
 - Names longer than 80 chars
 
-### Shared mutable state (Warning)
+### Shared mutable state (Warning — report only)
 
-Module-level `let` / mutable vars that are modified inside tests. Tests should be order-independent.
+Module-level `let` / mutable vars that are modified inside tests. Tests should be order-independent. This one is **reported but never auto-fixed**: rewriting shared state safely requires understanding the test's intent (is the shared object a real collaborator, a fixture, or a leak?). The report names the variable + file:line and suggests moving the setup into a per-test factory or `beforeEach`, but the rewrite is a human decision.
 
 See `references/test-patterns.md` for detection patterns per framework.
 

@@ -12,6 +12,8 @@ Based on: *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), 
 
 **14 plain-language rules, 13 skills, 1 background reviewer, and 2 hooks.**
 
+The **rules** are the standards (file size, function size, Law of Demeter, Fail Fast, etc.) defined in `.cleancode-rules.md`. The **skills** are the commands you run (`/cleancode:analyze`, `/cleancode:fix`, `/cleancode:teach`, …). Multiple skills can enforce the same rule — e.g., Rule 12 (Fail Fast) shows up in `analyze`, `safety`, `fix`, and the background reviewer.
+
 | Skill | Command | What it does |
 |---|---|---|
 | **Init** | `/cleancode:init` | Sets up clean code rules for your project — generates `.cleancode-rules.md`, `CLAUDE.md`, `.cursorrules`, `AGENTS.md` |
