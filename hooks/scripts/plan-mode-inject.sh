@@ -68,7 +68,7 @@ fi
 
 # Emit a short systemMessage reminder (JSON on stdout)
 cat <<'EOF'
-{"systemMessage": "cleancode: 14 clean code rules active in this project — include clean code considerations (file size, function size, interfaces, error handling, tests, Law of Demeter) in any plan. See .cleancode-rules.md for thresholds."}
+{"systemMessage": "cleancode: 15 clean code rules active in this project — include clean code considerations (file size, function size, interfaces, error handling, tests, Law of Demeter, folder structure) in any plan. See .cleancode-rules.md for thresholds."}
 EOF
 
 exit 0

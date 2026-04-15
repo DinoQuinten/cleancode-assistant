@@ -162,6 +162,31 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 ---
 
+## 15. Clean Module & Folder Structure (Cohesion at Package Level) — *Dynamic Rule*
+
+**Rule (plain):** The folder tree should read like a table of contents — someone new should be able to guess what the project does and roughly where to find things by looking at the top-level directories. Files that change together live together. How to achieve that depends on the project: a small library, a microservice, and a large application all have different "clean" structures. This rule gives guidance, not a template.
+**Why:** The folder tree is the first piece of documentation a new contributor reads. A tree that tells the story of the system saves hours of exploration. But every project is different — what works for a 50-file CLI tool doesn't work for a 5,000-file monorepo, and what the language community expects (Go's flat packages, Java's parallel test tree, Rust's `mod.rs`) overrides any universal preference. There is no one right shape.
+
+**Book:** Code Complete 2nd Ed., Chapter 5 — "Design in Construction"; Chapter 6 — "Working Classes"; The Art of Clean Code, Chapter 2 — "Focus".
+
+**Guiding principles (adapt to your project):**
+- **Let the folder tree tell a story.** A first-time reader should be able to guess the domain from top-level folder names alone. If the top level is `src/`, `lib/`, `utils/`, they learn nothing. If it's `auth/`, `billing/`, `orders/`, they already understand the system.
+- **Group by what changes together.** Files that are edited in the same PRs, touched by the same team, or belong to the same feature usually want to sit in the same folder — regardless of whether they're "types", "services", or "components" underneath.
+- **Cohesion beats convention.** Technical-layer folders (`controllers/`, `services/`, `models/`) are fine for small projects where the domain is obvious and there are only a few of each. They become painful as the project grows and unrelated domains pile up in the same folder. When that happens, switch to domain-first.
+- **Be skeptical of catch-all folders** (`utils/`, `helpers/`, `common/`, `misc/`, `shared/`). They're often a symptom — code landed there because no one knew where else to put it. A small amount is normal; a growing pile means a missing domain folder. But sometimes a `utils/` with 3 genuinely generic files really is fine. Use judgment.
+- **Follow the language/framework grain.** Rails has `app/models`, `app/controllers` — don't fight it. Go prefers flat packages with descriptive names. Java/Maven want `src/main/java/com/example/...` with a parallel `src/test`. Next.js has `app/` routing. Honor the conventions of your ecosystem before applying generic advice.
+- **Size shapes structure.** A 20-file script doesn't need domain folders at all — flat is clearer. A 500-file app usually benefits from grouping. A 5,000-file monorepo may need nested domains, bounded contexts, or workspace packages. The right structure scales with the codebase.
+- **Test layout follows the language.** Colocated tests (`foo.ts` + `foo.test.ts`) work well in TS/JS/Python. Parallel test trees are the norm in Java and idiomatic in Rust (`tests/` directory). Match the ecosystem — don't force one pattern.
+
+**How the plugin treats this rule:**
+- This is **not** a pass/fail check. The reviewer and `/cleancode:health` surface folder-structure observations as *style hints* — "you have a top-level `utils/` with 47 files; consider whether these belong to specific domains" — rather than as violations.
+- No auto-fix. Folder moves touch imports across the whole codebase and are almost always better done by a human who understands the domain.
+- Context-aware: for small projects (< ~30 files) the plugin stays quiet. For larger projects it starts suggesting groupings when signs of a problem appear (oversized catch-all folders, many same-named files across folders, etc.).
+
+**Severity:** Style — always surfaced as a suggestion, never blocking, always with "if this fits your project" framing.
+
+---
+
 ## Thresholds Summary
 
 | Metric | Threshold | Severity |
@@ -183,4 +208,5 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 | Missing input check on public function | first line isn't a guard | Warning |
 | `if` / `for` / `while` inside test body | any occurrence | Warning |
 | Test name doesn't describe behavior (no verb) | — | Style |
+| Folder structure (domain vs. layer, catch-all folders, size-appropriate grouping) | context-dependent — only flagged when signals accumulate | Style (hint, never auto-fixed) |
 | Unused export / single-implementation interface | — | Style |

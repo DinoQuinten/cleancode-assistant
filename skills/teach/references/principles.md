@@ -391,3 +391,48 @@ it("admin_can_login", () => {
 it("guest_can_login", () => { ... });
 it("user_can_login",  () => { ... });
 ```
+
+---
+
+### folder-structure / module-cohesion *(dynamic rule)*
+
+**Principle:** Clean Module & Folder Structure — Cohesion at Package Level
+**Rule (plain):** The folder tree should read like a table of contents. A new contributor should be able to guess the project's domain from the top-level folders alone. But *how* to achieve that depends on the project — a 20-file CLI, a Rails app, a Go service, and a 5,000-file monorepo all have different "clean" shapes. This rule gives guidance, not a template.
+
+**Book citations:**
+- *Code Complete 2nd Ed.*, Chapter 5 — "Design in Construction" and Chapter 6 — "Working Classes" discuss packaging cohesion.
+- *The Art of Clean Code*, Chapter 2 — "Focus" covers grouping by intent.
+
+**Why it matters:** The folder tree is the first documentation a new person reads. `src/auth/`, `src/billing/`, `src/orders/` tells them the shape of the system before they open a file. A flat `src/` full of `utils.ts`, `helpers.py`, `common/` tells them nothing. But there's no universal best shape — ecosystem conventions (Rails, Next.js, Go packages, Java Maven layout) and project size change what "clean" looks like.
+
+**Guiding principles (adapt to the project):**
+- **Let the tree tell the story.** Top-level folder names should hint at the domain.
+- **Group what changes together.** Files edited in the same PRs, by the same team, or for the same feature usually belong in the same folder.
+- **Cohesion beats convention.** Layer folders (`controllers/`, `services/`, `models/`) are fine when the project is small and has only a few of each. They stop working when multiple unrelated domains pile up inside.
+- **Be skeptical of catch-all folders** (`utils/`, `helpers/`, `common/`, `misc/`, `shared/`). A few genuine helpers are fine; a growing pile of unrelated files is a symptom of a missing domain folder.
+- **Follow the language/framework grain.** Rails has `app/models`, Go prefers flat packages, Java/Maven wants parallel `src/main` and `src/test`, Next.js has `app/` routing. Honor the ecosystem before applying generic advice.
+- **Size shapes structure.** Small projects want flat. Mid-size projects benefit from grouping. Large projects may need nested domains or workspace packages.
+- **Test layout follows the language.** Colocated tests work in TS/JS/Python. Parallel trees are idiomatic in Java and Rust.
+
+**How the plugin treats this rule:**
+- Not a pass/fail check. The reviewer and `/cleancode:health` surface folder-structure observations as context-aware hints — never blocking, never auto-fixed.
+- For small projects (< ~30 files), the plugin stays quiet. For larger projects, it starts suggesting groupings only when signals accumulate (e.g., oversized catch-all folder, many same-named files across folders, growing flat `src/`).
+- No auto-fix: folder moves ripple through imports and the final call should be made by someone who knows the domain.
+
+**Counter-example:**
+```
+# ❌ Technical-layer split in a medium project — domains are scattered
+src/
+  controllers/   (auth, billing, orders all mixed)
+  services/     (auth, billing, orders all mixed)
+  models/        (auth, billing, orders all mixed)
+  utils/         (47 unrelated files)
+
+# ✅ Domain-first — each folder tells part of the story
+src/
+  auth/          (types, service, controller, tests — colocated)
+  billing/
+  orders/
+  shared/        (small, genuinely generic, not a dumping ground)
+```
+*But:* in a 20-file CLI, the first structure is perfectly fine — don't force domains that don't exist yet.

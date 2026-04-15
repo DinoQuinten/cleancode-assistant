@@ -84,6 +84,15 @@ ALWAYS follow these rules when writing or editing any code in this project:
 - One idea per test — no `if`/`for`/`while` inside test bodies
 - Don't share mutable state between tests
 
+### Clean Module & Folder Structure (dynamic — adapts to the project)
+- The top-level folder tree should read like a table of contents — a new reader should guess the domain from folder names alone
+- Group files by what changes together, not by technical layer — prefer `auth/`, `billing/`, `orders/` over one big `controllers/` + `services/` split when the project has multiple domains
+- Be skeptical of catch-all folders (`utils/`, `helpers/`, `common/`, `misc/`, `shared/`) — a few genuine helpers are fine; a growing pile is a missing domain folder
+- Follow the language/framework grain: Rails, Next.js, Go packages, Java Maven, Rust `mod.rs` all have their own conventions — honor the ecosystem first
+- Size shapes structure: small projects want flat, mid-size wants grouping, large wants nested domains — no universal template
+- Test files colocate with code in TS/JS/Python; parallel test trees are idiomatic in Java and Rust
+- This is a style-level rule — treat as a dynamic hint, never a blocker, never auto-fixed
+
 ## Violation Handling
 
 When you identify a violation while writing code:

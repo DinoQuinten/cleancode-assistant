@@ -96,6 +96,15 @@ These instructions apply to all AI agents working in this codebase. They ensure 
 - Do not share mutable state between tests (global fixtures modified across tests, shared in-memory DB rows, etc.)
 - Why it matters: tests are code too. Messy tests pass when they shouldn't, break for the wrong reasons, and nobody understands what they were meant to prove.
 
+### Clean Module & Folder Structure — *Dynamic Rule*
+- The top-level folder tree should read like a table of contents. A new contributor should be able to guess what the project does from folder names alone.
+- Group files by what changes together — usually by domain or feature (`auth/`, `billing/`, `orders/`) rather than by technical layer (`controllers/`, `services/`, `models/`) once a project has multiple domains
+- Small projects (a few dozen files) are usually fine with a flat structure or simple layer split — don't force domain folders that don't exist yet
+- Be skeptical of catch-all folders (`utils/`, `helpers/`, `common/`, `misc/`, `shared/`). A few genuinely generic helpers are fine; a growing pile of unrelated code is a symptom of a missing domain folder
+- Honor the language/framework grain: Rails `app/models`, Go's flat packages, Java/Maven's `src/main`+`src/test`, Next.js `app/` routing, Rust `mod.rs` — ecosystem conventions come first
+- Test file placement follows the language: colocated (`foo.ts`, `foo.test.ts`) in TS/JS/Python; parallel tree in Java and Rust
+- Why it's dynamic: there is no single correct folder shape. A 50-file CLI, a 500-file web app, and a 5,000-file monorepo all have different "clean" layouts. Treat this as a guiding hint, never a fixed template — and never block or auto-reshape a project's folders.
+
 ## When Writing Code
 
 1. Before adding code to an existing file, check its current line count
@@ -106,6 +115,7 @@ These instructions apply to all AI agents working in this codebase. They ensure 
 6. Put guard clauses at the top of public functions — validate before doing work
 7. Never write empty `catch {}` or `except: pass` — make the error visible
 8. When writing tests, follow Arrange / Act / Assert and name each test after the behavior
+9. When creating new folders, prefer grouping by domain/feature over technical layer — but adapt to the project's size and framework conventions (don't force structure that isn't needed yet)
 
 ## When Reviewing Code
 

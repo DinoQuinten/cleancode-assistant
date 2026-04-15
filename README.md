@@ -1,4 +1,4 @@
-# cleancode — Clean Code Assistant Plugin (v0.2.0)
+# cleancode — Clean Code Assistant Plugin (v0.3.0)
 
 A Claude Code plugin that enforces clean code principles across your entire project and **actually fixes the code for you** — not just reports what's wrong. Locks in the same rules for Claude Code, Cursor, and Codex so every AI assistant follows the same standards from the first session onward.
 
@@ -10,9 +10,9 @@ Based on: *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), 
 
 ## Features
 
-**14 plain-language rules, 13 skills, 1 background reviewer, and 2 hooks.**
+**15 plain-language rules, 13 skills, 1 background reviewer, and 2 hooks.**
 
-The **rules** are the standards (file size, function size, Law of Demeter, Fail Fast, etc.) defined in `.cleancode-rules.md`. The **skills** are the commands you run (`/cleancode:analyze`, `/cleancode:fix`, `/cleancode:teach`, …). Multiple skills can enforce the same rule — e.g., Rule 12 (Fail Fast) shows up in `analyze`, `safety`, `fix`, and the background reviewer.
+The **rules** are the standards (file size, function size, Law of Demeter, Fail Fast, folder structure, etc.) defined in `.cleancode-rules.md`. The **skills** are the commands you run (`/cleancode:analyze`, `/cleancode:fix`, `/cleancode:teach`, …). Multiple skills can enforce the same rule — e.g., Rule 12 (Fail Fast) shows up in `analyze`, `safety`, `fix`, and the background reviewer. Rule 15 (folder structure) is a **dynamic** rule — guidance that adapts to project size, language, and framework rather than a rigid template.
 
 | Skill | Command | What it does |
 |---|---|---|
@@ -45,14 +45,14 @@ The **rules** are the standards (file size, function size, Law of Demeter, Fail 
 The skills split into four groups by purpose, so Claude (and you) always know which one to reach for.
 
 **Knowledge (1):**
-- `teach` — always-on reference for the 14 rules with book citations. Grounds Claude in shared vocabulary so every other skill can point at it without re-explaining the principle.
+- `teach` — always-on reference for the 15 rules with book citations (including the dynamic folder-structure rule). Grounds Claude in shared vocabulary so every other skill can point at it without re-explaining the principle.
 
 **Setup (2):**
 - `init` — one-time project bootstrap. Writes `.cleancode-rules.md` + `CLAUDE.md`.
 - `setup` — regenerates platform configs (`.cursorrules`, `AGENTS.md`) from the source of truth.
 
 **Detect + fix (6, each with report/fix modes):**
-- `analyze` — general scan across all 14 rules.
+- `analyze` — general scan across all 15 rules.
 - `safety` — hidden errors and missing input checks (Rule 12).
 - `untangle` — method chains and coupling (Rule 11).
 - `test` — AAA, vague names, multi-assertion tests (Rule 14).
@@ -104,7 +104,7 @@ This creates:
 
 From then on, every session opens with:
 ```
-cleancode active: 14 rules loaded from .cleancode-rules.md
+cleancode active: 15 rules loaded from .cleancode-rules.md
 ```
 
 ---
@@ -125,8 +125,11 @@ cleancode active: 14 rules loaded from .cleancode-rules.md
 | Missing input check on a public function | no guard in first 3 lines | Warning |
 | `if` / `for` / `while` inside a test body | any occurrence | Warning |
 | Test name doesn't describe behavior | `test1`, `testIt`, no verb | Style |
+| Folder structure (domain vs. layer, catch-all folders) | *dynamic* — context-dependent hint | Style |
 
 To customize thresholds, edit `.cleancode-rules.md` in your project and re-run `/cleancode:setup all`.
+
+**Dynamic rule** = guidance that adapts to the project's size, language, and framework. Rule 15 (folder structure) is the only dynamic rule so far — the plugin surfaces hints when signals accumulate (oversized catch-all folders, growing flat `src/`, etc.) rather than enforcing a universal template. No auto-fix, ever — folder moves ripple through imports and belong to humans who know the domain.
 
 ---
 
