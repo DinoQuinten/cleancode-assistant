@@ -1,5 +1,5 @@
 {
-  "name": "cleancode-assistant",
+  "name": "claude-plugins",
   "owner": {
     "name": "DinoQuinten",
     "email": "77713617+DinoQuinten@users.noreply.github.com"
@@ -9,18 +9,38 @@
       "name": "cleancode",
       "source": {
         "source": "github",
-        "repo": "DinoQuinten/cleancode-assistant",
+        "repo": "DinoQuinten/claude-plugins",
         "ref": "v0.3.0"
       },
       "description": "Clean code assistant — 15 plain-language rules (including a dynamic folder-structure rule), auto-fix for silent errors, method chains, messy tests, long functions, and more",
       "version": "0.3.0",
       "author": {
-        "name": "DinoQuinten"
+        "name": "Prasanna Anthony",
+        "url": "https://github.com/DinoQuinten"
       },
-      "homepage": "https://github.com/DinoQuinten/cleancode-assistant",
-      "repository": "https://github.com/DinoQuinten/cleancode-assistant",
+      "homepage": "https://github.com/DinoQuinten/claude-plugins",
+      "repository": "https://github.com/DinoQuinten/claude-plugins",
       "license": "MIT",
       "keywords": ["clean-code", "oop", "code-quality", "refactoring", "teaching", "interfaces", "readable", "tech-debt", "design-patterns", "testing", "health-check", "fail-fast", "folder-structure", "module-cohesion"]
+    },
+    {
+      "name": "system-and-database-design",
+      "source": {
+        "source": "github",
+        "repo": "DinoQuinten/claude-plugins",
+        "path": "system-and-database-design",
+        "ref": "v0.1.0-sdd"
+      },
+      "description": "Architect and database-design coach grounded in DDIA, Fundamentals of Software Architecture, and Kimball's Data Warehouse Toolkit. Produces design docs, Mermaid / Excalidraw / DBML diagrams, and architecture reviews.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Prasanna Anthony",
+        "url": "https://github.com/DinoQuinten"
+      },
+      "homepage": "https://github.com/DinoQuinten/claude-plugins",
+      "repository": "https://github.com/DinoQuinten/claude-plugins",
+      "license": "MIT",
+      "keywords": ["system-design", "software-architecture", "database-design", "diagramming", "ddia", "kimball", "microservices", "data-modeling"]
     }
   ]
 }

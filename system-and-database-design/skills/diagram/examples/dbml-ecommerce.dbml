@@ -1,0 +1,136 @@
+// E-commerce schema — reference example for the `diagram` skill.
+// Paste into https://dbdiagram.io to render + export SQL.
+
+Project ecommerce {
+  database_type: 'PostgreSQL'
+  Note: '''
+    Minimal e-commerce schema: users, products, orders, payments.
+    Demonstrates FKs, enums, composite PKs, indexes, and soft deletes.
+  '''
+}
+
+Enum order_status {
+  pending
+  paid
+  fulfilled
+  cancelled
+  refunded
+}
+
+Enum payment_status {
+  authorized
+  captured
+  failed
+  refunded
+}
+
+Table users {
+  id uuid [pk]
+  email varchar [unique, not null]
+  name varchar [not null]
+  password_hash varchar [not null]
+  created_at timestamp [default: `now()`, not null]
+  updated_at timestamp [default: `now()`, not null]
+  deleted_at timestamp [null, note: 'Soft-delete marker']
+
+  Indexes {
+    email [unique, name: 'idx_users_email']
+    created_at
+  }
+
+  Note: 'Registered customers. Soft-delete retains order history.'
+}
+
+Table products {
+  id uuid [pk]
+  sku varchar [unique, not null]
+  name varchar [not null]
+  description text
+  price_cents int [not null, note: 'Integer cents, never floats']
+  currency varchar(3) [not null, default: 'USD']
+  stock int [not null, default: 0]
+  created_at timestamp [default: `now()`, not null]
+
+  Indexes {
+    sku [unique]
+    (name) [type: gin, name: 'idx_products_name_fts']
+  }
+
+  Note: 'Canonical product catalog. Maintained by catalog service.'
+}
+
+Table orders {
+  id uuid [pk]
+  user_id uuid [not null, ref: > users.id]
+  status order_status [not null, default: 'pending']
+  total_cents int [not null]
+  currency varchar(3) [not null]
+  created_at timestamp [default: `now()`, not null]
+  updated_at timestamp [default: `now()`, not null]
+
+  Indexes {
+    user_id
+    (user_id, created_at) [name: 'idx_orders_user_time']
+    status
+  }
+}
+
+Table order_items {
+  order_id uuid [not null]
+  product_id uuid [not null]
+  quantity int [not null]
+  unit_price_cents int [not null, note: 'Snapshot of product price at purchase']
+
+  Indexes {
+    (order_id, product_id) [pk]
+    product_id
+  }
+}
+
+Table payments {
+  id uuid [pk]
+  order_id uuid [not null, ref: > orders.id]
+  provider varchar [not null, note: 'stripe, paypal, etc.']
+  provider_ref varchar [unique, not null, note: 'External charge id']
+  status payment_status [not null]
+  amount_cents int [not null]
+  created_at timestamp [default: `now()`, not null]
+
+  Indexes {
+    order_id
+    provider_ref [unique]
+  }
+}
+
+Table addresses {
+  id uuid [pk]
+  user_id uuid [not null, ref: > users.id]
+  line1 varchar [not null]
+  line2 varchar
+  city varchar [not null]
+  region varchar
+  postal_code varchar [not null]
+  country varchar(2) [not null]
+  is_default bool [not null, default: false]
+
+  Indexes {
+    user_id
+    (user_id, is_default)
+  }
+}
+
+// Explicit relationships (standalone form — extra clarity)
+Ref: "order_items"."order_id" > "orders"."id" [delete: cascade]
+Ref: "order_items"."product_id" > "products"."id" [delete: restrict]
+
+TableGroup "identity" {
+  users
+  addresses
+}
+
+TableGroup "commerce" {
+  products
+  orders
+  order_items
+  payments
+}
