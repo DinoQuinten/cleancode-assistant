@@ -4,7 +4,7 @@ A Claude Code plugin that enforces clean code principles across your entire proj
 
 **Plain language first.** Every rule is written so anyone — not just senior engineers — can follow it. The formal textbook name is in parentheses so experts still recognize it: "Don't Reach Through Objects (Law of Demeter)", "Check Inputs Early, Never Hide Errors (Fail Fast)".
 
-Based on: *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), *OOP vs. Functional Programming*.
+Based on: *Clean Code: A Handbook of Agile Software Craftsmanship* (Robert C. Martin), *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), *OOP vs. Functional Programming*.
 
 ---
 

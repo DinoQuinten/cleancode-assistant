@@ -1,6 +1,10 @@
 # Clean Code Rules — Canonical Ruleset
 
-Source: Code Complete 2nd Ed. (McConnell), The Art of Clean Code (Mayer), Object-Oriented vs. Functional Programming
+Source:
+- *Clean Code: A Handbook of Agile Software Craftsmanship* — Robert C. Martin (2008)
+- *Code Complete 2nd Ed.* — Steve McConnell
+- *The Art of Clean Code* — Christian Mayer
+- *Object-Oriented vs. Functional Programming*
 
 These rules apply to ALL programming languages. TypeScript/JavaScript projects have additional interface requirements marked [TS].
 
@@ -10,7 +14,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule:** No file exceeds 300 lines of code (excluding blank lines and comments).
 **Why:** A file that can't be read in one sitting is a file that violates single responsibility. If you need to scroll to understand it, it's too big.
-**Book:** Code Complete 2nd Ed., Chapter 5 — "Design in Construction"
+**Book:** Martin, *Clean Code*, Chapter 10 — "Classes Should Be Small!" and "Maintaining Cohesion Results in Many Small Classes"; Code Complete 2nd Ed., Chapter 5 — "Design in Construction"
 **Action when violated:** Split into smaller classes/modules. Each file should represent one concept.
 
 ---
@@ -19,7 +23,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule:** No function or method exceeds 40 lines. The ideal is under 20.
 **Why:** A function that does one thing fits on one screen. When it doesn't, it's doing more than one thing.
-**Book:** The Art of Clean Code, Chapter 3 — "Functions"; Code Complete 2nd Ed., Chapter 7 — "High-Quality Routines"
+**Book:** Martin, *Clean Code*, Chapter 3 — "Functions" ("Small!", "Do One Thing"); The Art of Clean Code, Chapter 3 — "Functions"; Code Complete 2nd Ed., Chapter 7 — "High-Quality Routines"
 **Action when violated:** Extract sub-functions. Name them by what they do, not how they do it.
 
 ---
@@ -28,7 +32,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule:** No function takes more than 4 parameters.
 **Why:** Long parameter lists signal that a function is doing too much or that related data should be grouped into an object/interface.
-**Book:** The Art of Clean Code, Chapter 3; Code Complete 2nd Ed., Chapter 7
+**Book:** Martin, *Clean Code*, Chapter 3 — "Function Arguments" ("the ideal number of arguments for a function is zero"); The Art of Clean Code, Chapter 3; Code Complete 2nd Ed., Chapter 7
 **Action when violated:** Group related parameters into a typed object or interface. [TS] Create a named interface for the parameter object.
 
 ---
@@ -52,7 +56,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 - Files: match the primary class/module they contain
 - No single-letter names except loop counters (i, j, k)
 - No abbreviations that aren't universally known (`btn` is ok; `usrAcctMgr` is not)
-**Book:** Code Complete 2nd Ed., Chapter 11 — "The Power of Variable Names"; The Art of Clean Code, Chapter 2
+**Book:** Martin, *Clean Code*, Chapter 2 — "Meaningful Names" ("Use Intention-Revealing Names", "Avoid Disinformation", "Class/Method Names"); Code Complete 2nd Ed., Chapter 11 — "The Power of Variable Names"; The Art of Clean Code, Chapter 2
 **Action when violated:** Rename immediately. Good names are the cheapest form of documentation.
 
 ---
@@ -67,7 +71,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 - **I — Interface Segregation**: Don't force clients to depend on interfaces they don't use. Keep interfaces small.
 - **D — Dependency Inversion**: Depend on abstractions, not concretions. [TS] Depend on interfaces, not classes.
 
-**Book:** Object-Oriented vs. Functional Programming (included PDF)
+**Book:** Martin, *Clean Code*, Chapter 10 — "Classes" (SRP, Cohesion, Organizing for Change); Object-Oriented vs. Functional Programming (included PDF)
 **Action when violated:** Refactor toward the violated principle. Document the reason if deviation is intentional.
 
 ---
@@ -89,7 +93,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule:** No logic is duplicated more than once. If you copy-paste more than 3 lines, extract a function.
 **Why:** Duplication is the root cause of most bugs — fix one instance, forget the others.
-**Book:** The Art of Clean Code, Chapter 6 — "Code Duplication"
+**Book:** Martin, *Clean Code*, Chapter 12 — "Emergence" ("No Duplication"); The Art of Clean Code, Chapter 6 — "Code Duplication"
 **Action when violated:** Extract to a shared utility, base class, or helper. Name it clearly.
 
 ---
@@ -102,7 +106,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 - Bad: `// Loop through users` (the code already says that)
 - No commented-out code. Use version control for history.
 - No TODO comments in committed code. Open a ticket instead.
-**Book:** The Art of Clean Code, Chapter 4 — "Comments"; Code Complete 2nd Ed., Chapter 32
+**Book:** Martin, *Clean Code*, Chapter 4 — "Comments" ("Comments Do Not Make Up for Bad Code", "Good Comments" vs "Bad Comments"); The Art of Clean Code, Chapter 4 — "Comments"; Code Complete 2nd Ed., Chapter 32
 **Action when violated:** Remove or rewrite. If the code needs a "what" comment, rename things until it doesn't.
 
 ---
@@ -126,7 +130,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule (plain):** A function should only talk to things it owns directly. Don't go digging through several objects to reach something you want. For example, `order.getCustomer().getAddress().getZip()` reaches too far.
 **Why:** When you chain calls like that, your code gets tangled up with classes it shouldn't even know about. If someone changes one of those middle classes, your code breaks too — even though it had no reason to.
-**Book:** The Art of Clean Code, Chapter 4, Principle 13 — "Law of Demeter"
+**Book:** Martin, *Clean Code*, Chapter 6 — "The Law of Demeter" and "Train Wrecks" ("talk to friends, not to strangers"); The Art of Clean Code, Chapter 4, Principle 13 — "Law of Demeter"
 **Action when violated:** Add a small helper on the object you already have (`order.getZip()`) that hides the digging behind one call.
 **Severity:** Warning.
 
@@ -136,7 +140,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule (plain):** At the top of any function that takes outside input, check the values make sense before using them. If something goes wrong, let it show — don't wrap a `try/catch` around it and pretend everything is fine.
 **Why:** Silent failures are the hardest bugs to find. They corrupt data, confuse users, and waste debugging time. Visible, early errors are easier to fix than buried ones.
-**Book:** Code Complete 2nd Ed., Chapter 8 — "Defensive Programming"
+**Book:** Martin, *Clean Code*, Chapter 7 — "Error Handling" ("Use Exceptions Rather Than Return Codes", "Don't Return Null", "Don't Pass Null"); Code Complete 2nd Ed., Chapter 8 — "Defensive Programming"
 **Action when violated:** Add guard clauses at the top of the function. Replace empty `catch {}` or `except: pass` with real error handling or let the error bubble up. Use assertions for things that should always be true.
 **Severity:** **Critical** when a function silently swallows errors or skips input checks at a public boundary. Warning for internal helper functions.
 
@@ -146,7 +150,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule (plain):** Don't add code "just in case we need it later" — most of the time, you never do. And when you're already editing a file for some other reason, tidy up small things you notice (a bad name, a missing comment, an unused import).
 **Why:** Features you add "for the future" are almost always wrong guesses — but they still cost you bugs and complexity right now. Meanwhile, tiny improvements as you go keep a codebase healthy without ever needing a big cleanup project.
-**Book:** The Art of Clean Code, Principle 14 — "YAGNI" and Principle 17 — "Boy Scout Rule"
+**Book:** Martin, *Clean Code*, Chapter 1 — "The Boy Scout Rule" ("Always leave the campground cleaner than you found it"); The Art of Clean Code, Principle 14 — "YAGNI" and Principle 17 — "Boy Scout Rule"
 **Action when violated:** Delete unused options, flags, and abstractions with only one implementation. When you touch a file, fix the small issues you notice.
 **Severity:** Style (informational — surfaced by review, never blocking).
 
@@ -156,7 +160,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **Rule (plain):** Every test should follow three short blocks: **set it up**, **do the thing**, **check the result** (often called Arrange / Act / Assert). Name the test after what it checks (`should_show_error_when_password_is_blank`). Keep one idea per test — no loops or `if` statements inside a test. Don't share mutable data between tests.
 **Why:** Tests are code too, and messy tests are worse than no tests — they pass when they shouldn't, break for the wrong reasons, and nobody understands what they were trying to prove.
-**Book:** Code Complete 2nd Ed., Chapter 22 — "Developer Testing"
+**Book:** Martin, *Clean Code*, Chapter 9 — "Unit Tests" ("Clean Tests", "One Assert per Test", "F.I.R.S.T.": Fast, Independent, Repeatable, Self-Validating, Timely); Code Complete 2nd Ed., Chapter 22 — "Developer Testing"
 **Action when violated:** Split tests that check multiple things. Rename tests to describe behavior. Move repeated setup into a helper. Remove control flow from test bodies.
 **Severity:** Warning.
 
@@ -167,7 +171,7 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 **Rule (plain):** The folder tree should read like a table of contents — someone new should be able to guess what the project does and roughly where to find things by looking at the top-level directories. Files that change together live together. How to achieve that depends on the project: a small library, a microservice, and a large application all have different "clean" structures. This rule gives guidance, not a template.
 **Why:** The folder tree is the first piece of documentation a new contributor reads. A tree that tells the story of the system saves hours of exploration. But every project is different — what works for a 50-file CLI tool doesn't work for a 5,000-file monorepo, and what the language community expects (Go's flat packages, Java's parallel test tree, Rust's `mod.rs`) overrides any universal preference. There is no one right shape.
 
-**Book:** Code Complete 2nd Ed., Chapter 5 — "Design in Construction"; Chapter 6 — "Working Classes"; The Art of Clean Code, Chapter 2 — "Focus".
+**Book:** Martin, *Clean Code*, Chapter 10 — "Classes" (especially "Cohesion", "Maintaining Cohesion Results in Many Small Classes", and "Organizing for Change" — the direct argument that high cohesion naturally produces many small, domain-focused modules) and Chapter 11 — "Systems" (separation of concerns, construction vs. use); Code Complete 2nd Ed., Chapter 5 — "Design in Construction"; Chapter 6 — "Working Classes"; The Art of Clean Code, Chapter 2 — "Focus".
 
 **Guiding principles (adapt to your project):**
 - **Let the folder tree tell a story.** A first-time reader should be able to guess the domain from top-level folder names alone. If the top level is `src/`, `lib/`, `utils/`, they learn nothing. If it's `auth/`, `billing/`, `orders/`, they already understand the system.
