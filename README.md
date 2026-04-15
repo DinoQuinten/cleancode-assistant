@@ -38,6 +38,37 @@ Based on: *Code Complete 2nd Ed.* (McConnell), *The Art of Clean Code* (Mayer), 
 
 ---
 
+## Rationale for 13 skills (11 action + 1 knowledge + 1 orchestrator)
+
+The skills split into four groups by purpose, so Claude (and you) always know which one to reach for.
+
+**Knowledge (1):**
+- `teach` — always-on reference for the 14 rules with book citations. Grounds Claude in shared vocabulary so every other skill can point at it without re-explaining the principle.
+
+**Setup (2):**
+- `init` — one-time project bootstrap. Writes `.cleancode-rules.md` + `CLAUDE.md`.
+- `setup` — regenerates platform configs (`.cursorrules`, `AGENTS.md`) from the source of truth.
+
+**Detect + fix (6, each with report/fix modes):**
+- `analyze` — general scan across all 14 rules.
+- `safety` — hidden errors and missing input checks (Rule 12).
+- `untangle` — method chains and coupling (Rule 11).
+- `test` — AAA, vague names, multi-assertion tests (Rule 14).
+- `structure` — suggests Strategy / Command / Factory / State patterns when they'd help.
+- `refactor` — applies one named refactoring (Extract Method, Replace Switch with Table, Guard Clauses, etc.).
+
+**Whole-project (3):**
+- `rewrite` — full cleaner rewrite of a single file.
+- `todo` — persistent team backlog at `.cleancode-todo.md`.
+- `health` — Cleanliness Score dashboard out of 100.
+
+**Orchestrator (1):**
+- `fix` — runs `analyze`, then delegates to each fixer in severity order. One command that cleans a file or project top-to-bottom.
+
+This separation keeps each skill small and focused, while `fix` gives you a single entrypoint when you don't want to think about which fixer applies.
+
+---
+
 ## Install
 
 From this repo's built-in marketplace:
