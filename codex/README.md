@@ -48,4 +48,4 @@ node codex/scripts/sync-rules.js
 npm publish
 ```
 
-The canonical rules come from `claude-code/skills/init/references/rules.md` in the repository layout, or `skills/init/references/rules.md` when this package is developed from the current plugin-root checkout.
+The canonical rules come from `cleancode/skills/init/references/rules.md` and the Codex AGENTS template comes from `cleancode/skills/setup/references/codex-agents.md`. The sync script also keeps fallback paths for older checkout layouts.

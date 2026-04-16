@@ -1,6 +1,6 @@
 {
   "name": "cleancode-codex",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Codex CLI installer for the 15 clean code rules.",
   "type": "module",
   "bin": "./bin/cleancode-codex.js",
@@ -21,8 +21,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DinoQuinten/cleancode-assistant.git",
+    "url": "git+https://github.com/DinoQuinten/claude-plugins.git",
     "directory": "codex"
   },
-  "homepage": "https://github.com/DinoQuinten/cleancode-assistant#readme"
+  "homepage": "https://github.com/DinoQuinten/claude-plugins#readme"
 }
