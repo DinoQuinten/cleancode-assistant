@@ -150,7 +150,7 @@ Table products {
 
 ## Workflow
 
-1. Write DBML in this plugin via `/diagram --format=dbml`
+1. Write DBML in this plugin via `/system-and-database-design:diagram --format=dbml`
 2. Paste into https://dbdiagram.io for interactive layout + sharing
 3. Export to PostgreSQL/MySQL/SQL Server DDL if desired
 4. Export to PNG/PDF for docs

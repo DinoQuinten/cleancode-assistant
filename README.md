@@ -83,10 +83,10 @@ A Claude Code plugin that helps you design real-world software architecture and 
 
 | Skill | Command | What it does |
 |---|---|---|
-| **Design System** | `/design-system <requirement>` | Full design doc with components, trade-offs, and capacity math |
-| **Design Database** | `/design-database <domain>` | Schema recommendation (SQL or NoSQL) with ER-style breakdown |
-| **Review Architecture** | `/review-architecture <path or text>` | Critique via fitness functions and checklists (scale, security, reliability, compliance, anti-patterns) |
-| **Diagram** | `/diagram <desc> --format=mermaid\|excalidraw\|dbml` | Generates diagrams in your tool of choice |
+| **Design System** | `/system-and-database-design:design-system <requirement>` | Full design doc with components, trade-offs, and capacity math |
+| **Design Database** | `/system-and-database-design:design-database <domain>` | Schema recommendation (SQL or NoSQL) with ER-style breakdown |
+| **Review Architecture** | `/system-and-database-design:review-architecture <path or text>` | Critique via fitness functions and checklists (scale, security, reliability, compliance, anti-patterns) |
+| **Diagram** | `/system-and-database-design:diagram <desc> --format=mermaid\|excalidraw\|dbml` | Generates diagrams in your tool of choice |
 | **Design Principles** | *(auto-triggered)* | Kicks in when you mention CAP, consistency, sharding, consensus, etc. |
 
 A lightweight `SessionStart` hook announces the plugin at the start of each session.

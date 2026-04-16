@@ -1,6 +1,6 @@
 ---
 name: review-architecture
-description: Reviews an architecture (file, repo, design doc, or pasted text) against scalability, security, reliability, compliance, and anti-pattern checklists plus fitness functions. Use when the user asks to "review my architecture", "critique this design", "audit this system", or invokes /review-architecture.
+description: Reviews an architecture (file, repo, design doc, or pasted text) against scalability, security, reliability, compliance, and anti-pattern checklists plus fitness functions. Use when the user asks to "review my architecture", "critique this design", "audit this system", or invokes /system-and-database-design:review-architecture.
 argument-hint: "<path to design doc, repo path, or pasted architecture text>"
 allowed-tools: Read, Grep, Glob, Write
 ---

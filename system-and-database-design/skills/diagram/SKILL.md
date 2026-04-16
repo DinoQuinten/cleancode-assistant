@@ -1,6 +1,6 @@
 ---
 name: diagram
-description: Generates Mermaid, Excalidraw JSON, or DBML diagrams. Use when the user asks to "diagram X", "draw the architecture", "generate an ER diagram", "create a sequence diagram", or invokes /diagram. Accepts a free-text description with `--format` and `--save` flags.
+description: Generates Mermaid, Excalidraw JSON, or DBML diagrams. Use when the user asks to "diagram X", "draw the architecture", "generate an ER diagram", "create a sequence diagram", or invokes /system-and-database-design:diagram. Accepts a free-text description with `--format` and `--save` flags.
 argument-hint: "<description> [--format=mermaid|excalidraw|dbml] [--save=./path.ext]"
 allowed-tools: Read, Write, Grep
 ---

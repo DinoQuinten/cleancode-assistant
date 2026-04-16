@@ -1,6 +1,6 @@
 ---
 name: design-system
-description: Produces a system design doc for a given requirement. Use when the user asks to "design a system", "architect a service", "design X at scale", or invokes /design-system. Grounded in DDIA and Fundamentals of Software Architecture.
+description: Produces a system design doc for a given requirement. Use when the user asks to "design a system", "architect a service", "design X at scale", or invokes /system-and-database-design:design-system. Grounded in DDIA and Fundamentals of Software Architecture.
 argument-hint: "<requirement, e.g. 'URL shortener' or 'multi-tenant chat'>"
 allowed-tools: Read, Write, Grep, Glob
 ---

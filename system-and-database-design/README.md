@@ -10,10 +10,10 @@ A Claude Code plugin that helps you design real-world software architecture and 
 
 ## What it gives you
 
-- `/design-system <requirement>` — full design doc with components, trade-offs, capacity math
-- `/design-database <domain>` — schema recommendation (SQL or NoSQL) with ER-style breakdown
-- `/review-architecture <path or text>` — critique via fitness functions and checklists (scale, security, reliability, compliance, anti-patterns)
-- `/diagram <desc> --format=mermaid|excalidraw|dbml` — generates diagrams in your tool of choice
+- `/system-and-database-design:design-system <requirement>` — full design doc with components, trade-offs, capacity math
+- `/system-and-database-design:design-database <domain>` — schema recommendation (SQL or NoSQL) with ER-style breakdown
+- `/system-and-database-design:review-architecture <path or text>` — critique via fitness functions and checklists (scale, security, reliability, compliance, anti-patterns)
+- `/system-and-database-design:diagram <desc> --format=mermaid|excalidraw|dbml` — generates diagrams in your tool of choice
 - Auto-triggering `design-principles` skill — kicks in when you mention CAP, consistency, sharding, consensus, etc.
 
 A lightweight `SessionStart` hook announces the plugin at the start of every session so you know it's available.
@@ -48,10 +48,10 @@ system-and-database-design/
 ├── .claude-plugin/plugin.json
 ├── hooks/hooks.json              # SessionStart banner
 ├── skills/
-│   ├── design-system/            # /design-system
-│   ├── design-database/          # /design-database
-│   ├── review-architecture/      # /review-architecture
-│   ├── diagram/                  # /diagram
+│   ├── design-system/            # /system-and-database-design:design-system
+│   ├── design-database/          # /system-and-database-design:design-database
+│   ├── review-architecture/      # /system-and-database-design:review-architecture
+│   ├── diagram/                  # /system-and-database-design:diagram
 │   └── design-principles/        # auto-triggered on CAP/ACID/sharding/etc.
 └── README.md
 ```

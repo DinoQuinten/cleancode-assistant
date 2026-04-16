@@ -158,7 +158,7 @@ Always caveat distributed-systems claims. Prefer "under partition this design gi
 
 ## Workflow Mappings
 
-Codex does not have Claude plugin slash commands. Treat the system-and-database-design commands as natural-language behaviors:
+Codex does not have Claude plugin slash commands. Treat the system-and-database-design commands, such as /system-and-database-design:design-system, as natural-language behaviors:
 
 - When the user asks to design a system, produce a design doc with requirements, assumptions, capacity math, components, data layer, APIs, async behavior, resilience, observability, security, deployment, and rejected alternatives.
 - When the user asks to design a database, start from workload and top queries. Default to Postgres unless the workload requires NoSQL. Cover schema, indexes, transactions, consistency, replication, sharding, schema evolution, and operations.

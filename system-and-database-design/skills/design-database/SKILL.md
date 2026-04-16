@@ -1,6 +1,6 @@
 ---
 name: design-database
-description: Proposes a database schema (SQL or NoSQL) for a given domain. Use when the user asks to "design a database", "model data for X", "build an ER", pick SQL vs NoSQL, or invokes /design-database. Grounded in DDIA and Kimball.
+description: Proposes a database schema (SQL or NoSQL) for a given domain. Use when the user asks to "design a database", "model data for X", "build an ER", pick SQL vs NoSQL, or invokes /system-and-database-design:design-database. Grounded in DDIA and Kimball.
 argument-hint: "<domain, e.g. 'e-commerce catalog' or 'SaaS billing'>"
 allowed-tools: Read, Write, Grep, Glob
 ---
