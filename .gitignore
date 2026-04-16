@@ -13,3 +13,6 @@ Thumbs.db
 # Cleancode artifacts created in consumer projects (not relevant here, but defensive)
 .cleancode-todo.md
 .cleancode-health.md
+
+# Local-only content drafts
+post.md
