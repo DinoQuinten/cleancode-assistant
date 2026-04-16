@@ -9,10 +9,12 @@ const templatesDir = path.join(packageRoot, "templates");
 
 const sourceCandidates = {
   rules: [
+    path.join(repoRoot, "cleancode/skills/init/references/rules.md"),
     path.join(repoRoot, "claude-code/skills/init/references/rules.md"),
     path.join(repoRoot, "skills/init/references/rules.md"),
   ],
   agents: [
+    path.join(repoRoot, "cleancode/skills/setup/references/codex-agents.md"),
     path.join(repoRoot, "claude-code/skills/setup/references/codex-agents.md"),
     path.join(repoRoot, "skills/setup/references/codex-agents.md"),
   ],

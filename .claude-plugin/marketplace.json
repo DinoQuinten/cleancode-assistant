@@ -10,10 +10,11 @@
       "source": {
         "source": "github",
         "repo": "DinoQuinten/claude-plugins",
-        "ref": "v0.3.0"
+        "path": "cleancode",
+        "ref": "cleancode/v0.3.1"
       },
       "description": "Clean code assistant — 15 plain-language rules (including a dynamic folder-structure rule), auto-fix for silent errors, method chains, messy tests, long functions, and more",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "author": {
         "name": "Prasanna Anthony",
         "url": "https://github.com/DinoQuinten"
