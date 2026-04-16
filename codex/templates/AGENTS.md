@@ -1,7 +1,7 @@
 # Agent Instructions — Clean Code Standards
 
 Source of truth: .cleancode-rules.md
-Enforced by: cleancode plugin
+Installed by: cleancode-codex
 
 ## Purpose
 

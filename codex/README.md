@@ -1,6 +1,6 @@
 # cleancode-codex
 
-Codex CLI installer for the same 15 clean code rules used by the Claude Code cleancode plugin.
+Codex CLI installer for the same 15 clean-code rules used by the Claude Code `/cleancode:*` plugin namespace.
 
 ## Install
 
