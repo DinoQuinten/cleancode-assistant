@@ -1,5 +1,5 @@
 ---
-name: clean-code-teach
+name: teach
 description: This skill should be used when the user asks to "explain this violation", "teach me about clean code", "why is this bad", "what's wrong with long functions", "explain single responsibility", "what does DRY mean", "teach me about interfaces", "explain this principle", "why do we need interfaces", "what is OOP", or when the user wants to understand the reasoning behind a clean code rule. Provides a clear explanation with a book citation, counter-example, and how to fix it.
 argument-hint: "[violation-type: file-too-long | function-too-long | too-many-parameters | deep-nesting | bad-naming | missing-interface | dry-violation | comments | human-readability]"
 allowed-tools: Read

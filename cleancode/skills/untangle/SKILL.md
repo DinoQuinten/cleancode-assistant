@@ -1,5 +1,5 @@
 ---
-name: clean-code-untangle
+name: untangle
 description: This skill should be used when the user asks to "reduce coupling", "untangle this code", "fix method chains", "too many imports", "this file depends on too much", "long method chains", "reaching through objects", "law of demeter", or mentions tangled dependencies between files. Detects and optionally fixes Rule 11 violations — long method chains, high fan-out imports, and circular dependencies.
 argument-hint: "[file-path or . for project] [fix]"
 allowed-tools: Read, Write, Edit, Grep, Glob

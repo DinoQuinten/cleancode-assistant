@@ -1,5 +1,5 @@
 ---
-name: clean-code-safety
+name: safety
 description: This skill should be used when the user asks to "check error handling", "find silent failures", "fix silent errors", "add input checks", "fail fast", "make this safer", "check for hidden errors", "defensive programming", or mentions empty catch blocks, swallowed exceptions, or missing validation. Detects and optionally fixes Rule 12 violations — silent error swallowing and missing guard clauses.
 argument-hint: "[file-path] [fix]"
 allowed-tools: Read, Write, Edit, Grep

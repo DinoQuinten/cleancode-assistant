@@ -1,5 +1,5 @@
 ---
-name: clean-code-init
+name: init
 description: This skill should be used when the user asks to "set up clean code rules", "initialize clean code", "init cleancode", "add clean code to this project", "set up code standards", "configure clean code rules", or when a new project is opened and no .cleancode-rules.md file exists. Generates the canonical ruleset and platform config files so all AI assistants follow clean code throughout the project.
 argument-hint: "[platform: all|claude|cursor|codex]"
 allowed-tools: Read, Write, Glob, Grep

@@ -1,5 +1,5 @@
 ---
-name: clean-code-health
+name: health
 description: This skill should be used when the user asks for "project health", "code health", "clean code score", "cleanliness score", "how bad is my code", "show metrics", "code quality dashboard", or wants a top-level view of the codebase's cleanliness. Produces a read-only dashboard of violation counts, worst offenders, and a 0-100 cleanliness score. Read-only by design — for fixing, use the specific skills.
 argument-hint: "[save]"
 allowed-tools: Read, Write, Glob, Grep

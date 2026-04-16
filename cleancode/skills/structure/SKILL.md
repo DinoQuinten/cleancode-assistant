@@ -1,5 +1,5 @@
 ---
-name: clean-code-structure
+name: structure
 description: This skill should be used when the user asks to "suggest a better structure", "apply a design pattern", "this switch is too big", "simplify this class", "apply strategy pattern", "apply command pattern", "apply factory pattern", "fix this structure", "replace switch with polymorphism", or mentions restructuring a class or giant switch statement. Detects and optionally applies well-known design patterns (Strategy, Command, Factory, State) from OOP vs. Functional Programming.
 argument-hint: "[file-path] [fix]"
 allowed-tools: Read, Write, Edit, Grep

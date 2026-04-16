@@ -1,5 +1,5 @@
 ---
-name: clean-code-rewrite
+name: rewrite
 description: This skill should be used when the user asks to "clean my code", "make it human readable", "make this readable", "rewrite this cleanly", "refactor this", "clean up this function", "simplify this code", "make this code better", "fix code quality", "clean this file", "this code is messy", "improve this code", or when code has visible violations like long functions, deep nesting, poor names, or missing interfaces. Produces a clean version preserving all behavior, with reasoning for each change.
 argument-hint: "[file-path or paste code directly]"
 allowed-tools: Read, Write, Edit

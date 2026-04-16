@@ -1,5 +1,5 @@
 ---
-name: clean-code-setup
+name: setup
 description: This skill should be used when the user asks to "set up cursor rules", "add clean code to cursor", "configure codex", "write cursorrules", "set up AGENTS.md", "add rules for codex", "set up all platforms", "configure all AI assistants", "sync rules to cursor", or when clean code rules need to be written for a specific AI coding assistant platform. Generates platform-native config files from .cleancode-rules.md.
 argument-hint: "[cursor|codex|claude|all]"
 allowed-tools: Read, Write

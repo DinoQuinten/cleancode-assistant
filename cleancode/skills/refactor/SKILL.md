@@ -1,5 +1,5 @@
 ---
-name: clean-code-refactor
+name: refactor
 description: This skill should be used when the user asks to "refactor this file", "clean up this code", "extract this function", "break this function apart", "pull this out into a method", "simplify this switch", "turn this into a table", "inline this", "replace magic number", or mentions a specific refactoring by name. Applies one named, surgical refactoring from the textbook catalog (Extract Method, Table-Driven, Replace Conditional with Polymorphism, etc.) and shows exactly what changed.
 argument-hint: "[file-path] [refactoring-name]"
 allowed-tools: Read, Write, Edit, Grep

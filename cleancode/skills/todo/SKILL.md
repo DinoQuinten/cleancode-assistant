@@ -1,5 +1,5 @@
 ---
-name: clean-code-todo
+name: todo
 description: This skill should be used when the user asks to "track to-fix items", "track technical debt", "scan for tech debt", "add a debt item", "what needs cleaning", "list known issues", "close a tech debt item", or mentions keeping a running list of cleanup work. Maintains a persistent .cleancode-todo.md file at the project root with entries for each known violation.
 argument-hint: "[scan | add <description> | list | close <id>]"
 allowed-tools: Read, Write, Grep, Glob

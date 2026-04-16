@@ -1,5 +1,5 @@
 ---
-name: clean-code-fix
+name: fix
 description: This skill should be used when the user asks to "fix everything", "fix all violations", "clean this up", "auto-fix", "apply all fixes", "clean my code", "fix this file completely", or wants a one-shot fixer that runs every cleancode fixer in order. Orchestrates analyze + each fixer skill (safety, untangle, test, refactor) in severity order, asks for confirmation, and applies fixes.
 argument-hint: "[file-path or . for project] [critical-only | all]"
 allowed-tools: Read, Write, Edit, Grep, Glob

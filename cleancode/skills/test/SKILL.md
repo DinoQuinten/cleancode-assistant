@@ -1,5 +1,5 @@
 ---
-name: clean-code-test
+name: test
 description: This skill should be used when the user asks to "check my tests", "clean up my tests", "fix my tests", "are my tests clean", "review this test file", "AAA pattern", "tests should be clean", or mentions messy tests, test naming, or tests that have loops or conditionals. Detects and optionally fixes Rule 14 violations — tests missing the Arrange / Act / Assert structure, bad test names, or control flow inside tests.
 argument-hint: "[test-file-path] [fix]"
 allowed-tools: Read, Write, Edit, Grep, Glob

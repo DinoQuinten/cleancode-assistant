@@ -1,5 +1,5 @@
 ---
-name: clean-code-analyze
+name: analyze
 description: This skill should be used when the user asks to "analyze this file", "check this code", "scan for violations", "find clean code issues", "review code quality", "check file length", "audit this project", "what's wrong with this code", or when a file looks messy or overly long. Scans files for clean code violations and outputs a grouped report of critical issues, warnings, and style suggestions.
 argument-hint: "[file-path or . for whole project]"
 allowed-tools: Read, Glob, Grep
