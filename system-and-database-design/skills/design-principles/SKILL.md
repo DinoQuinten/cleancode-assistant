@@ -1,6 +1,7 @@
 ---
 name: design-principles
 description: Explains distributed-systems and database principles — CAP, PACELC, consistency models (linearizable/causal/eventual), consensus (Raft/Paxos/quorums), ACID vs BASE, idempotency, Bloom/HyperLogLog/Count-Min/Merkle. Auto-activates when the user mentions these terms or asks "why does X happen in distributed systems". Grounded in DDIA ch. 5, 7, 9.
+argument-hint: ""
 version: 0.1.0
 allowed-tools: Read, Grep
 ---
