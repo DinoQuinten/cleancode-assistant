@@ -149,6 +149,27 @@ Run /cleancode:teach [principle] to understand any change made.
 - **Ask before splitting across modules** — if a split requires creating new directories or moving across package boundaries, confirm with the user first
 - **Preserve tests** — if test files exist, note what test updates are needed but don't rewrite tests unless asked
 
+## Chain to /cleancode:restructure when a split crosses folder boundaries
+
+`/rewrite` splits files into siblings in the same folder. When a split reveals that the extracted pieces actually belong **in different folders** per the project's conventions (e.g., extracting a service from a route handler — service belongs in `services/` or `lib/server/services/<feature>/`, not next to the route file), do NOT silently apply the move yourself. Instead, after presenting the split plan:
+
+1. Identify which extracted pieces are misplaced relative to the project's existing style (read top-level folders to infer style — feature-folders vs layered).
+2. Append to your output:
+
+   ```
+   ## Cross-folder restructure suggested
+
+   This split would benefit from cross-folder relocation:
+   - <ExtractedPiece1> — better fits `<destination-folder>/`
+   - <ExtractedPiece2> — better fits `<other-destination>/`
+
+   Chain to /cleancode:restructure for an atomic, plan-first move with import rewrites? [y/N]
+   ```
+
+3. If the user confirms, hand off to `/cleancode:restructure` with the specific files and proposed destinations as input scope.
+
+**When NOT to chain:** if all extracted files fit in the same folder as the original (typical case), no chain is needed. Only offer the chain when ≥ 2 extracted files clearly belong elsewhere — otherwise it's noise.
+
 ## Additional Resources
 
 ### Example Files

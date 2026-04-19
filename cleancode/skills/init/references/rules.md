@@ -184,10 +184,11 @@ These rules apply to ALL programming languages. TypeScript/JavaScript projects h
 
 **How the plugin treats this rule:**
 - This is **not** a pass/fail check. The reviewer and `/cleancode:health` surface folder-structure observations as *style hints* — "you have a top-level `utils/` with 47 files; consider whether these belong to specific domains" — rather than as violations.
-- No auto-fix. Folder moves touch imports across the whole codebase and are almost always better done by a human who understands the domain.
+- **Auto-fix:** `/cleancode:restructure` — plan-first, never silently applies. Reads the codebase, infers conventions, proposes a move-plan with import rewrites and a single confirmation gate; uses `git mv` to preserve history. Covers backend layouts (services, repositories, controllers, route handlers) and frontend layouts (components, pages, features, hooks, stores, ui/design-system) and mixed monorepos.
+- Auto-chains from `/cleancode:rewrite` when a file split would benefit from cross-folder relocation.
 - Context-aware: for small projects (< ~30 files) the plugin stays quiet. For larger projects it starts suggesting groupings when signs of a problem appear (oversized catch-all folders, many same-named files across folders, etc.).
 
-**Severity:** Style — always surfaced as a suggestion, never blocking, always with "if this fits your project" framing.
+**Severity:** Style — always surfaced as a suggestion, never blocking, always with "if this fits your project" framing. Auto-fix is opt-in via `/cleancode:restructure`.
 
 ---
 
