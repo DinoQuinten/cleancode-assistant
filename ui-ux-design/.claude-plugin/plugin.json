@@ -1,0 +1,29 @@
+{
+  "name": "uix",
+  "version": "0.1.0",
+  "description": "UI/UX design coach — grounds Claude in Refactoring UI, Don't Make Me Think, Designing Interfaces (Tidwell), UX for Beginners, The Mom Test, Change by Design, Interaction of Color, Colour and Light, and WCAG 2.2. Produces design critiques, component specs, accessibility audits, Tidwell pattern recommendations, color-system palettes, and Mom-Test-style user-research interview plans.",
+  "author": {
+    "name": "Prasanna Anthony",
+    "url": "https://github.com/DinoQuinten"
+  },
+  "homepage": "https://github.com/DinoQuinten/claude-plugins",
+  "repository": "https://github.com/DinoQuinten/claude-plugins",
+  "license": "MIT",
+  "keywords": [
+    "ui-design",
+    "ux-design",
+    "accessibility",
+    "wcag",
+    "wcag-2.2",
+    "refactoring-ui",
+    "tidwell-patterns",
+    "design-patterns",
+    "color-theory",
+    "user-research",
+    "mom-test",
+    "design-thinking",
+    "ideo",
+    "visual-hierarchy",
+    "typography"
+  ]
+}

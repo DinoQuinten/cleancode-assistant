@@ -32,6 +32,20 @@
       "repository": "https://github.com/DinoQuinten/claude-plugins",
       "license": "MIT",
       "keywords": ["system-design", "software-architecture", "database-design", "diagramming", "ddia", "kimball", "microservices", "data-modeling"]
+    },
+    {
+      "name": "uix",
+      "source": "./ui-ux-design",
+      "description": "UI/UX design coach grounded in Refactoring UI, Don't Make Me Think, Designing Interfaces (Tidwell), UX for Beginners, The Mom Test, Change by Design, Interaction of Color, Colour and Light, and WCAG 2.2. Produces design critiques, component specs, accessibility audits, Tidwell pattern recommendations, color-system palettes, and Mom-Test user-research interview plans.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Prasanna Anthony",
+        "url": "https://github.com/DinoQuinten"
+      },
+      "homepage": "https://github.com/DinoQuinten/claude-plugins",
+      "repository": "https://github.com/DinoQuinten/claude-plugins",
+      "license": "MIT",
+      "keywords": ["ui-design", "ux-design", "accessibility", "wcag", "wcag-2.2", "refactoring-ui", "tidwell-patterns", "design-patterns", "color-theory", "user-research", "mom-test", "design-thinking", "visual-hierarchy", "typography"]
     }
   ]
 }

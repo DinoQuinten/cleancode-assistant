@@ -1,0 +1,53 @@
+{
+  "description": "uix plugin hooks. Auto-activates on first session in any project (no manual init). SessionStart scaffolds .uix-config.md from a template and scans for design assets (design/, mockups/, *.fig, *.sketch, ...). The other three hooks then provide UI-prompt detection (incl. 'implement this design'-style phrases), component-reuse reminders before frontend writes, and a fast rule-based validator after writes so bottlenecks surface immediately. Set `enabled: false` in .uix-config.md to opt out per project.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session-init.py\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/frontend-prompt-detect.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/frontend-file-guard.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/frontend-validator.py\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
