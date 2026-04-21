@@ -1,9 +1,9 @@
 ---
 name: structure
 description: This skill should be used when the user asks to "suggest a better structure", "apply a design pattern", "this switch is too big", "simplify this class", "apply strategy pattern", "apply command pattern", "apply factory pattern", "fix this structure", "replace switch with polymorphism", or mentions restructuring a class or giant switch statement. Detects and optionally applies well-known design patterns (Strategy, Command, Factory, State) from OOP vs. Functional Programming.
-argument-hint: "[file-path] [fix]"
-allowed-tools: Read, Write, Edit, Grep
-version: 0.2.0
+argument-hint: "[path, default: whole project] [fix]"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.3.0
 ---
 
 # Clean Code Structure
@@ -16,14 +16,20 @@ Spot places where a well-known structural pattern would help, name it in plain l
 - User mentions a big switch, a class that does too many things, or repeated construction logic
 - `/cleancode:fix` delegates structural rewrites to this skill
 
+## Default Scope: whole codebase
+
+No path given → scan the whole project for pattern candidates (see `../../SCOPE_POLICY.md`). Pass a file or folder to narrow.
+
 ## Modes
 
 | Invocation | Behavior |
 |---|---|
-| `/cleancode:structure <file>` | Report only — name the pattern, explain why it fits |
-| `/cleancode:structure <file> fix` | Show the rewrite plan, then apply |
+| `/cleancode:structure` | **Report across whole project (default)** — rank candidate files by pattern fit |
+| `/cleancode:structure <path>` | Report only on the given file or folder |
+| `/cleancode:structure <path> fix` | Show the rewrite plan for that path, then apply |
+| `/cleancode:structure .` | Explicit whole-project (same as the no-arg default) |
 
-Default is **report mode**.
+Default is **report mode** for writes. Structural rewrites are large — project-wide `fix` is intentionally not offered; narrow to a file first. Default scope is **whole codebase** unless a path is given in the command or in the current user message.
 
 ## Patterns This Skill Knows
 

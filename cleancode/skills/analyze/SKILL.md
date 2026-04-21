@@ -1,14 +1,18 @@
 ---
 name: analyze
 description: This skill should be used when the user asks to "analyze this file", "check this code", "scan for violations", "find clean code issues", "review code quality", "check file length", "audit this project", "what's wrong with this code", or when a file looks messy or overly long. Scans files for clean code violations and outputs a grouped report of critical issues, warnings, and style suggestions.
-argument-hint: "[file-path or . for whole project]"
-allowed-tools: Read, Glob, Grep
-version: 0.1.0
+argument-hint: "[path, default: whole project]"
+allowed-tools: Read, Glob, Grep, Bash
+version: 0.2.0
 ---
 
 # Clean Code Analyze
 
 Scan one file or the whole project for clean code violations. Output a grouped report (Critical / Warning / Style) with specific line numbers and actionable suggestions.
+
+## Default Scope: whole codebase
+
+No path given → scan the whole project (see `../../SCOPE_POLICY.md`). Pass a file or folder to narrow.
 
 ## Thresholds (Quick Reference)
 
@@ -67,9 +71,9 @@ Run /cleancode:rewrite [file] to see a cleaner version.
 Run /cleancode:teach [violation] to understand any principle.
 ```
 
-## Whole Project Analysis
+## Whole Project Analysis (default)
 
-When `$ARGUMENTS` is empty, `.`, or not provided:
+When `$ARGUMENTS` is empty, `.`, or not provided — **this is the default path**:
 
 1. **Glob all source files** — exclude `node_modules`, `.git`, `dist`, `build`, `*.min.*`, `*.lock`, `*.generated.*`
 2. **Quick line scan** — count lines for every file

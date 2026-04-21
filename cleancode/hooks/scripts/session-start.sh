@@ -19,8 +19,14 @@ if [ ! -f "$RULES_FILE" ]; then
   echo "Run /cleancode:init to set up clean code rules for all AI assistants."
   echo "This will create: .cleancode-rules.md, CLAUDE.md, .cursorrules, AGENTS.md"
 else
-  # Rules file exists — count the rules and report active
+  # Rules file exists — report active and state the default-scope policy
   echo "cleancode active — rules loaded from .cleancode-rules.md"
+  echo ""
+  echo "cleancode scope policy: every /cleancode:* command defaults to the whole"
+  echo "codebase. Narrow to a single file/folder ONLY when the user passes a path"
+  echo "in the command (e.g. '/cleancode:safety src/auth.ts') or explicitly names"
+  echo "one in the current message. A filename mentioned in earlier turns does"
+  echo "not count — if unsure, scan the whole codebase. See SCOPE_POLICY.md."
 fi
 
 exit 0

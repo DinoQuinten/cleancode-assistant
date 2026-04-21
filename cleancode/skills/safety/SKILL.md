@@ -1,9 +1,9 @@
 ---
 name: safety
 description: This skill should be used when the user asks to "check error handling", "find silent failures", "fix silent errors", "add input checks", "fail fast", "make this safer", "check for hidden errors", "defensive programming", or mentions empty catch blocks, swallowed exceptions, or missing validation. Detects and optionally fixes Rule 12 violations — silent error swallowing and missing guard clauses.
-argument-hint: "[file-path] [fix]"
-allowed-tools: Read, Write, Edit, Grep
-version: 0.2.0
+argument-hint: "[path, default: whole project] [fix]"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.3.0
 ---
 
 # Clean Code Safety
@@ -16,15 +16,21 @@ Find and (optionally) repair places where the code quietly fails or skips checks
 - Analyze reports Rule 12 violations and user wants them fixed
 - `/cleancode:fix` delegates safety fixes to this skill
 
+## Default Scope: whole codebase
+
+No path given → scan the whole project (see `../../SCOPE_POLICY.md`). Pass a file or folder to narrow.
+
 ## Modes
 
 | Invocation | Behavior |
 |---|---|
-| `/cleancode:safety <file>` | Report only — list silent catches and missing guards |
-| `/cleancode:safety <file> fix` | Plan the fix, show diff, then apply via Edit |
-| `/cleancode:safety .` | Report across the whole project |
+| `/cleancode:safety` | **Report across whole project (default)** |
+| `/cleancode:safety fix` | Plan project-wide fixes, show diff, confirm, then apply |
+| `/cleancode:safety <path>` | Report only on the given file or folder |
+| `/cleancode:safety <path> fix` | Plan the fix for that path, show diff, then apply via Edit |
+| `/cleancode:safety .` | Explicit whole-project (same as the no-arg default) |
 
-Default is **report mode**. Only write when `fix` is passed.
+Default is **report mode** for writes. Only write when `fix` is passed. Default scope is **whole codebase** unless a path is given in the command or in the current user message.
 
 ## Step 1: Detect Violations
 

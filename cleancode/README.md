@@ -4,6 +4,7 @@ A Claude Code plugin that turns 15 clean-code rules into enforcement, not advice
 
 ## What it gives you
 
+- **Whole-codebase by default** — every `/cleancode:*` command scans the whole project unless you pass a file or folder path (or name one in the message). Narrow scope is opt-in, wide scope is free. See `SCOPE_POLICY.md` for the exact rules.
 - **15 plain-language rules** — Law of Demeter, Fail Fast, function size, naming, folder structure, AAA tests, and more. Formal names stay in parentheses so seniors still recognise them.
 - **Auto-fix, not just flag** — method chains (`a.b().c().d()`) become named helpers, empty catches become surfaced errors with guards, messy tests get rewritten with Arrange / Act / Assert.
 - **Cross-folder restructure** — `/cleancode:restructure` reads the project's own conventions, proposes a plan to move misplaced code into properly-named folders (`features/`, `services/`, `ui/`, `lib/`, etc.), waits for one confirmation, then moves files atomically with `git mv` and rewrites every affected import. Covers both **backend** (route handlers, services, repositories) and **frontend** (page-file bloat, component duplication, feature folders, hooks/stores) layouts.

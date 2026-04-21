@@ -1,9 +1,9 @@
 ---
 name: refactor
 description: This skill should be used when the user asks to "refactor this file", "clean up this code", "extract this function", "break this function apart", "pull this out into a method", "simplify this switch", "turn this into a table", "inline this", "replace magic number", or mentions a specific refactoring by name. Applies one named, surgical refactoring from the textbook catalog (Extract Method, Table-Driven, Replace Conditional with Polymorphism, etc.) and shows exactly what changed.
-argument-hint: "[file-path] [refactoring-name]"
-allowed-tools: Read, Write, Edit, Grep
-version: 0.2.0
+argument-hint: "[path, default: whole project] [refactoring-name]"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.3.0
 ---
 
 # Clean Code Refactor
@@ -15,12 +15,20 @@ Apply one specific, well-known refactoring to a file. Each refactoring has a tex
 - User asks to apply a specific named refactoring to a file
 - `/cleancode:fix` delegates long-function and deep-nesting fixes here
 
+## Default Scope: whole codebase
+
+No path given → scan the whole project, rank files by refactoring impact, and propose the single highest-impact refactoring. The user picks `yes` (apply it), `next` (see the second-ranked candidate), or names a file explicitly. See `../../SCOPE_POLICY.md`.
+
 ## Arguments
 
 ```
-/cleancode:refactor <file> <refactoring-name>
-/cleancode:refactor <file>                      # skill suggests the best fit
+/cleancode:refactor                              # scan project, propose top candidate (default)
+/cleancode:refactor <file>                       # skill suggests the best refactoring for that file
+/cleancode:refactor <file> <refactoring-name>    # apply the named refactoring to that file
+/cleancode:refactor .                            # explicit whole-project scan (same as default)
 ```
+
+Default scope is **whole codebase**: with no path, glob every source file, detect the most impactful single refactoring opportunity (longest function, deepest nesting, biggest switch, worst magic-number density), and present it for confirmation. Only narrow to a single file when the user passes a path in the command or names one in the current message.
 
 Valid refactoring names (plain-language first, textbook name in parens):
 
@@ -39,6 +47,18 @@ Valid refactoring names (plain-language first, textbook name in parens):
 See `references/refactoring-catalog.md` for each refactoring's full template and when to apply it.
 
 ## Step 1: Identify the Refactoring
+
+### Step 1a — resolve the target file (whole-codebase default)
+
+If the user supplied a path, skip to 1b. Otherwise:
+
+1. Glob all source files (exclusions per `../../SCOPE_POLICY.md`).
+2. For each file, score: longest-function lines, deepest nesting, biggest switch case count, magic-number count, param count.
+3. Rank files by the weighted max score. Pick the top candidate.
+4. Announce it: *"Top candidate: `src/order.ts` — `processOrder()` is 98 lines. Apply `extract-function`? (yes / next / pick another file)"*
+5. If the user says `next`, present the #2 candidate. If they name a file, jump to that file.
+
+### Step 1b — identify the refactoring (single file resolved)
 
 If the user supplied a name, use it. Otherwise:
 

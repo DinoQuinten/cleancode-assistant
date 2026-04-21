@@ -1,9 +1,9 @@
 ---
 name: untangle
 description: This skill should be used when the user asks to "reduce coupling", "untangle this code", "fix method chains", "too many imports", "this file depends on too much", "long method chains", "reaching through objects", "law of demeter", or mentions tangled dependencies between files. Detects and optionally fixes Rule 11 violations — long method chains, high fan-out imports, and circular dependencies.
-argument-hint: "[file-path or . for project] [fix]"
-allowed-tools: Read, Write, Edit, Grep, Glob
-version: 0.2.0
+argument-hint: "[path, default: whole project] [fix]"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.3.0
 ---
 
 # Clean Code Untangle
@@ -16,16 +16,22 @@ Find and (optionally) repair places where one file or function knows too much ab
 - Analyze reports Rule 11 violations and user wants them fixed
 - `/cleancode:fix` delegates chain-depth fixes to this skill
 
+## Default Scope: whole codebase
+
+No path given → scan the whole project (see `../../SCOPE_POLICY.md`). Pass a file or folder to narrow.
+
 ## Modes
 
 | Invocation | Behavior |
 |---|---|
-| `/cleancode:untangle <file>` | Report only — list violations with line numbers, no file changes |
-| `/cleancode:untangle <file> fix` | Show planned edits, then apply via Edit / Write |
-| `/cleancode:untangle .` | Report across the whole project |
+| `/cleancode:untangle` | **Report across whole project (default)** |
+| `/cleancode:untangle fix` | Plan project-wide fixes, confirm, then apply |
+| `/cleancode:untangle <path>` | Report only on the given file or folder |
+| `/cleancode:untangle <path> fix` | Show planned edits for that path, then apply via Edit / Write |
+| `/cleancode:untangle .` | Explicit whole-project (same as the no-arg default) |
 | `/cleancode:untangle . fix` | Apply fixes project-wide (asks for confirmation first) |
 
-Default is **report mode**. Only write to files when the user passes `fix`.
+Default is **report mode** for writes. Only write to files when the user passes `fix`. Default scope is **whole codebase** unless a path is given in the command or in the current user message.
 
 ## Step 1: Detect Violations
 

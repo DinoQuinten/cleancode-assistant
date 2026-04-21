@@ -1,14 +1,28 @@
 ---
 name: rewrite
 description: This skill should be used when the user asks to "clean my code", "make it human readable", "make this readable", "rewrite this cleanly", "refactor this", "clean up this function", "simplify this code", "make this code better", "fix code quality", "clean this file", "this code is messy", "improve this code", or when code has visible violations like long functions, deep nesting, poor names, or missing interfaces. Produces a clean version preserving all behavior, with reasoning for each change.
-argument-hint: "[file-path or paste code directly]"
-allowed-tools: Read, Write, Edit
-version: 0.1.0
+argument-hint: "[path, default: whole project] | paste code directly"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.2.0
 ---
 
 # Clean Code Rewrite
 
 Produce a clean version of the provided code that preserves all existing behavior while fixing violations. Show what changed and why — this is both a fix and a learning moment.
+
+## Default Scope: whole codebase
+
+No path given (and no code pasted) → scan the whole project, rank files by rewrite impact (size × violation density), and propose the single highest-impact file for rewrite. See `../../SCOPE_POLICY.md`.
+
+| Invocation | Behavior |
+|---|---|
+| `/cleancode:rewrite` | **Scan project, propose top candidate, confirm (default)** |
+| `/cleancode:rewrite <file>` | Rewrite the named file |
+| `/cleancode:rewrite <folder>` | Rank files inside that folder, propose top candidate |
+| `/cleancode:rewrite` + pasted code block | Rewrite the pasted snippet |
+| `/cleancode:rewrite .` | Explicit whole-project (same as the no-arg default) |
+
+Rewrite is a large, per-file operation — it always confirms the target file with the user before producing a full rewrite, even when the scope is the whole codebase. Only skip the ranking step when a path or pasted code is given in the command or in the current user message.
 
 ## Core Principle
 

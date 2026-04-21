@@ -1,9 +1,9 @@
 ---
 name: test
 description: This skill should be used when the user asks to "check my tests", "clean up my tests", "fix my tests", "are my tests clean", "review this test file", "AAA pattern", "tests should be clean", or mentions messy tests, test naming, or tests that have loops or conditionals. Detects and optionally fixes Rule 14 violations — tests missing the Arrange / Act / Assert structure, bad test names, or control flow inside tests.
-argument-hint: "[test-file-path] [fix]"
-allowed-tools: Read, Write, Edit, Grep, Glob
-version: 0.2.0
+argument-hint: "[path, default: all test files in project] [fix]"
+allowed-tools: Read, Write, Edit, Grep, Glob, Bash
+version: 0.3.0
 ---
 
 # Clean Code Test
@@ -16,14 +16,21 @@ Find and (optionally) clean up messy tests. Targets Rule 14 — Tests Should Be 
 - Analyze reports Rule 14 violations
 - `/cleancode:fix` delegates test cleanup to this skill when the target is a test file
 
+## Default Scope: all test files in the project
+
+No path given → glob every test file (see file patterns in Step 1 and `../../SCOPE_POLICY.md`). Pass a file or folder to narrow.
+
 ## Modes
 
 | Invocation | Behavior |
 |---|---|
-| `/cleancode:test <file>` | Report only — list messy tests |
-| `/cleancode:test <file> fix` | Plan the rewrites, show diff, then apply |
+| `/cleancode:test` | **Report across every test file in the project (default)** |
+| `/cleancode:test fix` | Plan rewrites for every test file, show diff, confirm, then apply |
+| `/cleancode:test <path>` | Report only on the given test file or folder |
+| `/cleancode:test <path> fix` | Plan the rewrites for that path, show diff, then apply |
+| `/cleancode:test .` | Explicit whole-project (same as the no-arg default) |
 
-Default is **report mode**.
+Default is **report mode** for writes. Default scope is **all test files in the codebase** unless a path is given in the command or in the current user message. Non-test files are skipped automatically (see Step 1).
 
 ## Step 1: Confirm This Is a Test File
 
