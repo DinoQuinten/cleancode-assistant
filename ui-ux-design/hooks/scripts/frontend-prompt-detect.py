@@ -28,20 +28,62 @@ import _design_scan  # noqa: E402
 import _project_detect  # noqa: E402
 
 
-# HARD keywords — strong UI signal, fire on their own.
+# HARD keywords — unambiguous UI/design terms. Fire alone, even against
+# NEGATIVE_CONTEXT. Framework names are only included in their disambiguated
+# forms (e.g. "next.js", not bare "next") to avoid matching common English.
 HARD_UI_KEYWORDS = re.compile(
     r"""\b(
         ui | ux | a11y | accessibility | wcag |
         frontend | front-end | jsx | tsx |
+        tailwind | shadcn | chakra | mantine | radix | mui | material-ui |
+        next\.js | nextjs | nuxt\.js | nuxtjs | sveltekit | solidjs |
+        typography | palette |
+        mockup | wireframe | figma
+    )\b""",
+    re.IGNORECASE | re.VERBOSE,
+)
+
+# SOFT keywords — ambiguous on their own: bare framework names that double as
+# English words (react, solid, lit, remix, astro, next, vue…), generic
+# component names that routinely appear in bug reports about logic rather
+# than design (button, tabs, modal…), and style-lang extensions. These must
+# be corroborated by a second signal before the hook fires.
+SOFT_UI_KEYWORDS = re.compile(
+    r"""\b(
+        react | vue | svelte | angular | solid | qwik | remix | astro | lit |
+        nuxt | next |
         button | modal | dialog | dropdown | combobox | navbar | sidebar |
         toast | tooltip | accordion | tabs |
         dashboard | landing |
-        typography | palette |
-        tailwind | shadcn | chakra | mantine | radix | mui | material-ui |
-        react | next(\.?js)? | vue | nuxt | svelte(kit)? | astro |
-        solid(js)? | qwik | remix | angular | lit |
-        scss | sass |
-        mockup | wireframe | figma | sketch
+        scss | sass
+    )\b""",
+    re.IGNORECASE | re.VERBOSE,
+)
+
+# Style/design verbs — a SOFT hit + one of these implies design work.
+STYLE_VERBS = re.compile(
+    r"""\b(
+        styl(?:e|es|ed|ing) | restyl(?:e|es|ed|ing) |
+        redesign(?:s|ed|ing)? | reskin(?:s|ned|ning)? | skin(?:s|ned|ning)? |
+        theme(?:s|d)? | theming | retheme(?:d|s)? |
+        lay(?:\s+|-)?out | laying\s+out |
+        prototype(?:s|d)? | prototyping |
+        mock(?:\s*up)?s? | mocking\s*up |
+        polish(?:es|ed|ing)? | align(?:s|ed|ing|ment)? | reflow(?:s|ed|ing)?
+    )\b""",
+    re.IGNORECASE | re.VERBOSE,
+)
+
+# Bug-fix intent — when the prompt is primarily about fixing broken behavior,
+# SOFT hits alone should NOT fire the hook (a mention of "tabs" or "react" in
+# a bug report is not a design task).
+BUG_FIX_INTENT = re.compile(
+    r"""\b(
+        fix(?:es|ed|ing)? | bug | broken | crash(?:es|ed|ing)? |
+        not\s+working | doesn'?t\s+work(?:ing)? | isn'?t\s+working |
+        throws | throwing | exception | stack\s*trace |
+        regression | error\s+in | error\s+when | error\s+at |
+        fails | failing | failure
     )\b""",
     re.IGNORECASE | re.VERBOSE,
 )
@@ -124,16 +166,39 @@ REUSE_BLOCK = (
 def looks_like_ui_work(prompt: str) -> bool:
     if not prompt.strip():
         return False
+
+    has_hard = bool(HARD_UI_KEYWORDS.search(prompt))
     has_design_phrase = bool(DESIGN_INTENT_PHRASES.search(prompt))
-    has_hard_keyword = bool(HARD_UI_KEYWORDS.search(prompt))
-    if not (has_design_phrase or has_hard_keyword):
+    soft_tokens = {m.lower() for m in SOFT_UI_KEYWORDS.findall(prompt)}
+    has_style_verb = bool(STYLE_VERBS.search(prompt))
+    has_bug_fix = bool(BUG_FIX_INTENT.search(prompt))
+    has_negative = bool(NEGATIVE_CONTEXT.search(prompt))
+
+    # Unambiguous hard keyword fires on its own, even against negative context.
+    if has_hard:
+        return True
+
+    # Backend/infra/data context blocks the softer signals below.
+    if has_negative:
         return False
-    # Negative context blocks when the only signal is a design-intent phrase
-    # (which can be ambiguous — "design the view" could be an ORM view). A
-    # hard UI keyword like "react" / "tsx" / "button" overrides negatives.
-    if NEGATIVE_CONTEXT.search(prompt) and not has_hard_keyword:
+
+    # A full design-implementation phrase (e.g. "build a login page") fires alone.
+    if has_design_phrase:
+        return True
+
+    # Only SOFT hits from here on. Bug-fix language without a design verb means
+    # the user is debugging logic ("fix the tabs structure") — do not fire.
+    if has_bug_fix and not has_style_verb:
         return False
-    return True
+
+    # A SOFT hit plus a style/design verb, or two distinct SOFT tokens,
+    # is enough corroboration.
+    if soft_tokens and has_style_verb:
+        return True
+    if len(soft_tokens) >= 2:
+        return True
+
+    return False
 
 
 def main() -> int:
